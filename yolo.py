@@ -560,7 +560,7 @@ def update_metrics(matches, scores, pred_labels, gt_labels):
     return tp, fp, scores, pred_labels
 
 
-def train_model(model, train_loader, validation_loader, num_epochs=100):
+def train_model(model, train_loader, validation_loader, num_epochs=10):
     """
     Main training loop for the model.
     """
@@ -573,8 +573,8 @@ def train_model(model, train_loader, validation_loader, num_epochs=100):
     # Define the optimizer
     optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
     # Define the learning rate scheduler
-    scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
-        optimizer, 'min', patience=3, factor=0.1)
+    # scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
+    #    optimizer, 'min', patience=3, factor=0.1)
 
     # Transfer the model to the GPU
     model.to(device)
@@ -630,7 +630,7 @@ def train_model(model, train_loader, validation_loader, num_epochs=100):
         val_losses.append(avg_val_loss)
 
         # Update the learning rate scheduler
-        scheduler.step(avg_val_loss)
+        # scheduler.step(avg_val_loss)
 
         # Print the loss for the epoch
         print(
